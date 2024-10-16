@@ -1,19 +1,19 @@
 name: Populate Depot json
 
-on: 
+on:
   # runs when this repository's releases are modified
-  release: 
+  release:
   # allows for manual dispatching of the workflow
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   populate:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       # permits reading of releases and writing to the depot branch
       contents: write
     steps:
-        # where to find gh action and what version to use
+      # where to find gh action and what version to use
       - uses: LemLib/pros-depot@v0.1.0-beta.1
         with:
           # gives the github action the permissions specified above

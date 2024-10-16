@@ -5,13 +5,18 @@ View the [example project](https://github.com/LemLib/LemLib/blob/stable/src/main
 ```
 
 ## Introduction
+
 In this tutorial, we will be learning how to program the drivetrain to allow for controller joystick inputs.
 
 ## The controller
-The controller has 2 joysticks. A `left` one and a `right` one. Each joystick has 2 axes, an `x` axis and a `y` axis. We will be using these axes to control the drivetrain.
+
+The controller has 2 joysticks. A `left` one and a `right` one. Each joystick has 2 axes, an `x` axis and a `y` axis. We
+will be using these axes to control the drivetrain.
 
 ## Tank Drive
-Tank drive is a simple method of controlling the drivetrain. You give it the power for the left wheels and the power for the right wheels. In this example, we will use the `left y` axis and the `right y` axis.
+
+Tank drive is a simple method of controlling the drivetrain. You give it the power for the left wheels and the power for
+the right wheels. In this example, we will use the `left y` axis and the `right y` axis.
 
 ```cpp
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -33,7 +38,9 @@ void opcontrol() {
 ```
 
 ## Arcade Drive
-Arcade drive is the most popular form of controlling the robot. In arcade control, we give the robot a forwards/backwards speed and a turning speed. Below are 2 examples: single stick arcade and double stick arcade.
+
+Arcade drive is the most popular form of controlling the robot. In arcade control, we give the robot a
+forwards/backwards speed and a turning speed. Below are 2 examples: single stick arcade and double stick arcade.
 
 ### Single Stick Arcade
 
@@ -83,7 +90,11 @@ void opcontrol() {
 This section is optional and is not needed to control the robot
 ```
 
-You can prioritize steering over turning, or vice versa. For example, you could fully prioritize steering so that the angular velocity of the robot is guaranteed to be the same for a given steering input, no matter the throttle input. With LemLib, you can prioritize steering over throttle by a set amount, from 0 to 1. 0.5 is the default, where steering and turning have the same priority. 0 fully prioritizes throttle, while 1 fully prioritizes steering. See the code block below:
+You can prioritize steering over turning, or vice versa. For example, you could fully prioritize steering so that the
+angular velocity of the robot is guaranteed to be the same for a given steering input, no matter the throttle input.
+With LemLib, you can prioritize steering over throttle by a set amount, from 0 to 1. 0.5 is the default, where steering
+and turning have the same priority. 0 fully prioritizes throttle, while 1 fully prioritizes steering. See the code block
+below:
 
 ```cpp
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
@@ -106,7 +117,10 @@ void opcontrol() {
 ```
 
 ## Curvature Drive
-Curvature drive is a lesser-know, yet powerful, method. We give the robot a forwards/backwards speed, and the curvature of an arc. The greater the curvature, the more the robot turns. Its similar to arcade but performs better when turning. Below is an example of single stick and double stick curvature drive:
+
+Curvature drive is a lesser-know, yet powerful, method. We give the robot a forwards/backwards speed, and the curvature
+of an arc. The greater the curvature, the more the robot turns. Its similar to arcade but performs better when turning.
+Below is an example of single stick and double stick curvature drive:
 
 ### Single Stick Curvature
 
@@ -151,7 +165,9 @@ void opcontrol() {
 ```
 
 ## But which do I choose?
-There is no right answer to this question. The driver should use whichever control method they feel most comfortable with.
+
+There is no right answer to this question. The driver should use whichever control method they feel most comfortable
+with.
 
 ## Input Scaling
 
@@ -167,9 +183,12 @@ Tank control only uses the throttle curve, it does not use the steer curve
 [Detailed explanation in Vex Forum](https://www.vexforum.com/t/expo-drive-lemlibs-implementation/123337)
 ```
 
-Making precise movements is difficult. If only there was a way make it less sensitive, but not limit the maximum speed. Well, there is a way, and it's called input scaling.
+Making precise movements is difficult. If only there was a way make it less sensitive, but not limit the maximum speed.
+Well, there is a way, and it's called input scaling.
 
-Instead of the regular linear relationship between controller input and drivetrain output, input scaling is an exponential relationship to make small movements less sensitive in exchange for making fast movements more sensitive. Below in an image of this relationship:
+Instead of the regular linear relationship between controller input and drivetrain output, input scaling is an
+exponential relationship to make small movements less sensitive in exchange for making fast movements more sensitive.
+Below in an image of this relationship:
 
 ```{image} ../assets/3_driver_control/curve.jpeg
 :align: center
@@ -201,6 +220,6 @@ lemlib::Chassis chassis(drivetrain,
 );
 ```
 
-
 ## Conclusion
+
 That's all for driver control. We will be covering autonomous motion and tuning in the next tutorial.

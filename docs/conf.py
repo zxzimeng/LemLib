@@ -24,8 +24,6 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
@@ -50,11 +48,10 @@ html_theme_options = {
 
 html_static_path = ['_static']
 
-
 breathe_projects = {"LemLib": "xml/"}
 
 breathe_projects_source = {
-    "LemLib" : (
+    "LemLib": (
         "../", ["include/lemlib", "include/lemlib/chassis"]
     )
 }
@@ -78,13 +75,12 @@ myst_enable_extensions = [
     "tasklist",
 ]
 
-
-
 # Run doxygen for the readthedocs build
 
-import subprocess, os
+import os
+import subprocess
 
 read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
 
 if read_the_docs_build:
-     subprocess.call('cd ../doxygen; doxygen', shell=True)
+    subprocess.call('cd ../doxygen; doxygen', shell=True)

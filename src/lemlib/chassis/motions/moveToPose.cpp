@@ -5,14 +5,17 @@
 #include "lemlib/util.hpp"
 #include "pros/misc.hpp"
 
-void lemlib::Chassis::moveToPose(float x, float y, float theta, int timeout, MoveToPoseParams params, bool async) {
+void lemlib::Chassis::moveToPose(Pose pose, int timeout, MoveToPoseParams params, bool async) {
+    float x=pose.x;
+    float y=pose.y;
+    float theta=pose.theta;
     // take the mutex
     this->requestMotionStart();
     // were all motions cancelled?
     if (!this->motionRunning) return;
     // if the function is async, run it in a new task
     if (async) {
-        pros::Task task([&]() { moveToPose(x, y, theta, timeout, params, false); });
+        pros::Task task([&]() { moveToPose(pose, timeout, params, false); });
         this->endMotion();
         pros::delay(10); // delay to give the task time to start
         return;

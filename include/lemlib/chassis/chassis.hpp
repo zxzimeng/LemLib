@@ -482,6 +482,16 @@ class Chassis {
          * @endcode
          */
         void setBrakeMode(pros::motor_brake_mode_e mode);
+
+        float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params, bool degrees);
+
+        lemlib::Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees);
+
+        void moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance, bool degrees, bool async);
+
+        void moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance,
+                                      bool async);
+
         /**
          * @brief Turn the chassis so it is facing the target point
          *
@@ -651,12 +661,11 @@ class Chassis {
          * chassis.moveToPose(0, 0, 0, 4000, {.lead = 0.3});
          * @endcode
          */
-        void moveToPose(float x, float y, float theta, int timeout, MoveToPoseParams params = {}, bool async = true);
+        void moveToPose(Pose pose, int timeout, MoveToPoseParams params = {}, bool async = true);
         /**
          * @brief Move the chassis towards a target point
          *
-         * @param x x location
-         * @param y y location
+         * @param pose
          * @param timeout longest time the robot can spend moving
          * @param params struct to simulate named parameters
          * @param async whether the function should be run asynchronously. true by default
@@ -679,7 +688,7 @@ class Chassis {
          * chassis.moveToPoint(7.5, 7.5, 4000, {.minSpeed = 60, .earlyExitRange = 5});
          * @endcode
          */
-        void moveToPoint(float x, float y, int timeout, MoveToPointParams params = {}, bool async = true);
+        void moveToPoint(Pose pose, int timeout, MoveToPointParams params = {}, bool async = true);
         /**
          * @brief Move the chassis along a path
          *

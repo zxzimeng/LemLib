@@ -5,14 +5,16 @@
 #include "lemlib/util.hpp"
 #include "pros/misc.hpp"
 
-void lemlib::Chassis::moveToPoint(float x, float y, int timeout, MoveToPointParams params, bool async) {
+void lemlib::Chassis::moveToPoint(Pose pose, int timeout, MoveToPointParams params, bool async) {
+    float x = pose.x;
+    float y = pose.y;
     params.earlyExitRange = fabs(params.earlyExitRange);
     this->requestMotionStart();
     // were all motions cancelled?
     if (!this->motionRunning) return;
     // if the function is async, run it in a new task
     if (async) {
-        pros::Task task([&]() { moveToPoint(x, y, timeout, params, false); });
+        pros::Task task([&]() { moveToPoint(pose, timeout, params, false); });
         this->endMotion();
         pros::delay(10); // delay to give the task time to start
         return;

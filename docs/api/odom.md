@@ -8,7 +8,6 @@
 ```{doxygenfunction} lemlib::init
 ```
 
-
 ## Pose
 
 ```{doxygenclass} lemlib::Pose

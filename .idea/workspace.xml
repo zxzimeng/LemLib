@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="LemLib" targetName="library" />
+      <config projectName="LemLib" targetName="all" />
+      <config projectName="LemLib" targetName="template" />
+      <config projectName="LemLib" targetName="quick" />
+      <config projectName="LemLib" targetName="Makefile" />
+      <config projectName="LemLib" targetName="cc-sysroot" />
+      <config projectName="LemLib" targetName="cxx-sysroot" />
+      <config projectName="LemLib" targetName="clean-template" />
+      <config projectName="LemLib" targetName="bin" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="90de64a7-e78f-42fd-8b78-ebc54363f554" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.clang-format" beforeDir="false" afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/CODE_OF_CONDUCT.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/CODE_OF_CONDUCT.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/BUG_REPORT.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/BUG_REPORT.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/FEATURE_REQUEST.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/PULL_REQUEST_TEMPLATE.md" beforeDir="false" afterPath="$PROJECT_DIR$/.github/PULL_REQUEST_TEMPLATE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/depot.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/depot.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pr-comment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pr-comment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pros-build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pros-build.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/test-clang-format.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/test-clang-format.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/about.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/api/odom.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/api/odom.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/5_angular_motion/swing-turn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/5_angular_motion/swing-turn.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-point.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-point.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-pose.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-pose.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle-with-coords.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle-with-coords.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/chain-with-turn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/8_motion_chaining/chain-with-turn.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/path-around-obstacle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/docs/assets/8_motion_chaining/path-around-obstacle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/download.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/download.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/support.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/support.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/1_getting_started.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/1_getting_started.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/2_configuration.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/2_configuration.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/3_driver_control.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/3_driver_control.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/4_pid_tuning.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/4_pid_tuning.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/5_angular_motion.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/5_angular_motion.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/6_lateral_motion.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/6_lateral_motion.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/7_pure_pursuit.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/7_pure_pursuit.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tutorials/8_motion_chaining.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tutorials/8_motion_chaining.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/lemlib/pid.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/lemlib/pid.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPose.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPose.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/example.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="LemLib" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="LemLib" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2024" />
+    <option name="minorVersion" value="2.2" />
+    <option name="productBranch" value="Classic" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2nUePC2c3wkehYswCgV885TDxyA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.has.clang-format&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;stable&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/fox/code/LemLib_C&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Native Application.all">
+    <configuration name="Makefile" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="Makefile" CONFIG_NAME="Makefile" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="all" CONFIG_NAME="all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="bin" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="bin" CONFIG_NAME="bin" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cc-sysroot" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="cc-sysroot" CONFIG_NAME="cc-sysroot" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clean-template" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="clean-template" CONFIG_NAME="clean-template" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="cxx-sysroot" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="cxx-sysroot" CONFIG_NAME="cxx-sysroot" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="library" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="library" CONFIG_NAME="library" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="quick" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="quick" CONFIG_NAME="quick" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="template" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="LemLib" TARGET_NAME="template" CONFIG_NAME="template" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.library" />
+      <item itemvalue="Native Application.quick" />
+      <item itemvalue="Native Application.template" />
+      <item itemvalue="Native Application.bin" />
+      <item itemvalue="Native Application.cc-sysroot" />
+      <item itemvalue="Native Application.clean-template" />
+      <item itemvalue="Native Application.cxx-sysroot" />
+      <item itemvalue="Native Application.Makefile" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="90de64a7-e78f-42fd-8b78-ebc54363f554" name="Changes" comment="" />
+      <created>1729032055421</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729032055421</updated>
+      <workItem from="1729032056679" duration="254000" />
+      <workItem from="1729032317157" duration="2857000" />
+      <workItem from="1729045116903" duration="78000" />
+      <workItem from="1729045476943" duration="1152000" />
+      <workItem from="1729048746991" duration="2369000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

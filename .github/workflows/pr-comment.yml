@@ -1,15 +1,15 @@
-name: Add Template to Pull Request 
+name: Add Template to Pull Request
 on:
   workflow_run:
-    workflows: ['Build Template']
-    types: [completed]
+    workflows: [ 'Build Template' ]
+    types: [ completed ]
 jobs:
   pr_comment:
     # if Build Template was successful and ran on a branch that is currently the head in a pull request
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
-    permissions: 
+    permissions:
       pull-requests: write
     
     steps:
@@ -21,11 +21,11 @@ jobs:
             async function upsertComment(owner, repo, issue_number, purpose,old_body, body) {
               const {data: comments} = await github.rest.issues.listComments(
                 {owner, repo, issue_number});
-                
+            
               const marker = `\r\n<!-- DO NOT REMOVE!! -->\r\n<!-- bot: ${purpose} -->\r\n`;
 
               const old_marker = new RegExp(marker.replace("\r\n", "\r?\n")).exec(old_body)?.[0] ?? marker;
-              
+            
               body = old_body.split(old_marker)[0] + marker + body;
               await github.request('PATCH /repos/{owner}/{repo}/pulls/{pull_number}', {
                 owner: owner,

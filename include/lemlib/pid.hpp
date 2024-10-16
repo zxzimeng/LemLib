@@ -3,6 +3,17 @@
 namespace lemlib {
 class PID {
     public:
+
+    float kP;
+    float kI;
+    float kD;
+
+    // optimizations
+    float windupRange;
+    bool signFlipReset;
+
+    float integral = 0;
+    float prevError = 0;
         /**
          * @brief Construct a new PID
          *
@@ -60,17 +71,5 @@ class PID {
          * @endcode
          */
         void reset();
-    protected:
-        // gains
-        const float kP;
-        const float kI;
-        const float kD;
-
-        // optimizations
-        const float windupRange;
-        const bool signFlipReset;
-
-        float integral = 0;
-        float prevError = 0;
 };
 } // namespace lemlib

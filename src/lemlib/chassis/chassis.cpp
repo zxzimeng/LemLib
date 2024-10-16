@@ -1,4 +1,5 @@
 #include <math.h>
+#include <cmath>
 #include "pros/imu.hpp"
 #include "pros/motors.h"
 #include "pros/rtos.h"
@@ -8,6 +9,8 @@
 #include "lemlib/chassis/odom.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
 #include "pros/rtos.hpp"
+#include <stdexcept>
+
 
 lemlib::OdomSensors::OdomSensors(TrackingWheel* vertical1, TrackingWheel* vertical2, TrackingWheel* horizontal1,
                                  TrackingWheel* horizontal2, pros::Imu* imu)
@@ -158,4 +161,92 @@ void lemlib::Chassis::resetLocalPosition() {
 void lemlib::Chassis::setBrakeMode(pros::motor_brake_mode_e mode) {
     drivetrain.leftMotors->set_brake_mode_all(mode);
     drivetrain.rightMotors->set_brake_mode_all(mode);
+}
+
+// Function to calculate h
+double calculateH(double x_start, double y_start, double x_end, double y_end) {
+    return std::sqrt(std::pow(x_start - x_end, 2) + std::pow(y_start - y_end, 2));
+}
+
+// Parametric functions for x(t) and y(t)
+double parametricX(double t, double x_start, double x1, double x_end) {
+    return (1 - t) * ((1 - t) * x_start + t * x1) + t * ((1 - t) * x1 + t * x_end);
+}
+
+double parametricY(double t, double y_start, double y1, double y_end) {
+    return (1 - t) * ((1 - t) * y_start + t * y1) + t * ((1 - t) * y1 + t * y_end);
+}
+
+// Function to calculate arc length, x1, and y1
+double calculateArcLength(double x_start, double y_start, double x_end,
+                          double y_end, double theta_end, double d_lead,
+                          int n) {
+    double h = calculateH(x_start, y_start, x_end, y_end);
+    double x1 = x_end - h * std::sin(theta_end) * d_lead;
+    double y1 = y_end - h * std::cos(theta_end) * d_lead;
+
+    double totalLength = 0.0;
+    double dt = 1.0 / n;
+
+    for (int i = 0; i < n; i++) {
+        double t1 = i * dt;
+        double t2 = (i + 1) * dt;
+
+        double x1_val = parametricX(t1, x_start, x1, x_end);
+        double y1_val = parametricY(t1, y_start, y1, y_end);
+        double x2_val = parametricX(t2, x_start, x1, x_end);
+        double y2_val = parametricY(t2, y_start, y1, y_end);
+
+        double segmentLength = std::sqrt(std::pow(x2_val - x1_val, 2) + std::pow(y2_val - y1_val, 2));
+        totalLength += segmentLength;
+    }
+
+    return totalLength;
+}
+
+float lemlib::Chassis::aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params, bool degrees=true) {
+    return calculateArcLength(current_pose.x, current_pose.y, pose.x, pose.y,degrees? degToRad(pose.theta) : pose.theta, params.lead, 1000);
+}
+
+lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees=true) {
+    float magnitude = (Pose) {0,0,0}.distance(pose);
+    float target_magnitude = magnitude+offset;
+    Pose unit_vector = {sin(degrees? degToRad(pose.theta) : pose.theta)/magnitude, sin(degrees? degToRad(pose.theta) : pose.theta)/magnitude};
+    Pose target_pose = unit_vector*target_magnitude;
+
+    return target_pose;
+}
+
+void lemlib::Chassis::moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance, bool async=false, bool degrees=true) {
+    if (exit_distance<0) {
+        throw std::out_of_range("Exit distance must be non-negative");
+    }
+    if (async) {
+        pros::Task task([&]() { moveToPoseWithEarlyExit(pose, timeout, params, exit_distance, degrees, false); });
+        this->endMotion();
+        pros::delay(10); // delay to give the task time to start
+        return;
+    }
+    float expected_distance = aproximateDistanceToPoseWithBoomerang(getPose(true), {pose.x, pose.y, degrees? degToRad(pose.theta) : pose.theta}, {.lead=params.lead}, false)-exit_distance;
+    moveToPose(pose, timeout, params, false);
+    waitUntil(expected_distance);
+    cancelMotion();
+    return;
+}
+
+void lemlib::Chassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance, bool async=false) {
+    if (exit_distance<0) {
+        throw std::out_of_range("Exit distance must be non-negative");
+    }
+    if (async) {
+        pros::Task task([&]() { moveToPointWithEarlyExit(pose, timeout, params, exit_distance, async); });
+        this->endMotion();
+        pros::delay(10); // delay to give the task time to start
+        return;
+    }
+    float expected_distance = getPose(false).distance(pose);
+    moveToPoint(pose, timeout, params, false);
+    waitUntil(expected_distance);
+    cancelMotion();
+    return;
 }

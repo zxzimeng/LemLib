@@ -2,11 +2,13 @@
 
 ## Manual Download
 
-LemLib can be downloaded as a [PROS](https://pros.cs.purdue.edu/) template from the [releases](https://github.com/LemLib/LemLib/releases) tab in the LemLib github repository.
+LemLib can be downloaded as a [PROS](https://pros.cs.purdue.edu/) template from
+the [releases](https://github.com/LemLib/LemLib/releases) tab in the LemLib github repository.
 
 ## Depot Download
 
-If you don't want to re-download LemLib every time a new release comes out, we've set up a depot to make the updating process easier.
+If you don't want to re-download LemLib every time a new release comes out, we've set up a depot to make the updating
+process easier.
 
 You can use the following commands to add the depot to your `pros-cli` installation.
 
