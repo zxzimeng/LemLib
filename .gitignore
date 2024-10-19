@@ -17,7 +17,6 @@ temp.errors
 .d/
 
 # template files
-*.zip
 
 # Docs
 docs/package-lock.json
