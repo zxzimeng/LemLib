@@ -26,55 +26,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90de64a7-e78f-42fd-8b78-ebc54363f554" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Doxyfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/about.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/chassis.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/odom.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/api/utils.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/1_getting_started/download-pros-toolchain.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/1_getting_started/download-visual-studio-code.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/1_getting_started/install-pros.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/2_configuration/track_width.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/2_configuration/tracking_wheel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/2_configuration/tracking_wheel_distance.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/3_driver_control/curve.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/4_pid_tuning/i_tuning_flowchart.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/4_pid_tuning/i_tuning_flowchart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/4_pid_tuning/pd_tuning_flowchart.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/4_pid_tuning/pd_tuning_flowchart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/5_angular_motion/swing-turn.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-point.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/6_lateral_motion/move-to-pose.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/7_pure_pursuit/custom_speed.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/7_pure_pursuit/pursuit.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle-with-coords.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/boomerang-chaining-around-obstacle.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/chain-with-turn.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/8_motion_chaining/path-around-obstacle.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/assets/LemLib_Banner_V3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/conf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/contribute.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/download.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/make.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/support.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/1_getting_started.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/2_configuration.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/3_driver_control.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/4_pid_tuning.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/5_angular_motion.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/6_lateral_motion.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/7_pure_pursuit.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tutorials/8_motion_chaining.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +115,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;stable&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/fox/code/LemLib_C&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/fox/code/VEX_24_25/pros_driver_auton&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -259,11 +215,6 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Native Application.Makefile" />
       <item itemvalue="Native Application.all" />
@@ -292,7 +243,13 @@
       <workItem from="1729051418082" duration="1181000" />
       <workItem from="1729052971920" duration="2000" />
       <workItem from="1729052980216" duration="5000" />
-      <workItem from="1729196646845" duration="2983000" />
+      <workItem from="1729196646845" duration="5286000" />
+      <workItem from="1729279914643" duration="3000" />
+      <workItem from="1729280197881" duration="2186000" />
+      <workItem from="1729293881669" duration="20000" />
+      <workItem from="1729311729131" duration="20000" />
+      <workItem from="1729313480441" duration="654000" />
+      <workItem from="1729351771481" duration="1741000" />
     </task>
     <servers />
   </component>

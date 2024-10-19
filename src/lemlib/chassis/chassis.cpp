@@ -9,6 +9,8 @@
 #include "lemlib/chassis/odom.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
 #include "pros/rtos.hpp"
+
+#include <future>
 #include <stdexcept>
 
 
@@ -204,7 +206,7 @@ constexpr double calculateArcLength(double x_start, double y_start, double x_end
 }
 
 float lemlib::Chassis::aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params, bool degrees=true) {
-    return calculateArcLength<10000>(current_pose.x, current_pose.y, pose.x, pose.y,degrees? degToRad(pose.theta) : pose.theta, params.lead);
+    return calculateArcLength<8000>(current_pose.x, current_pose.y, pose.x, pose.y,degrees? degToRad(pose.theta) : pose.theta, params.lead);
 }
 
 lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees=true) {
@@ -248,4 +250,95 @@ void lemlib::Chassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToP
     waitUntil(expected_distance);
     cancelMotion();
     return;
+}
+
+struct movement {
+    lemlib::Pose pose;
+    float offset_distance;
+    std::variant<lemlib::MoveToPoseParams, lemlib::MoveToPointParams> moveParams;
+    float exitDistance;
+    float timeout=4000;
+    bool degrees=true;
+    bool async=false;
+};
+
+struct transform_accross_field {
+    bool mirrorHorizontal;
+    bool mirrorVertical;
+};
+
+std::vector<lemlib::Chassis::movement> lemlib::Chassis::transformMovements(const std::vector<movement>& movements, transform_across_field transformation) {
+    std::vector<movement> results;
+    for (auto eachMovement : movements) {
+        movement newMovement=eachMovement;
+        if (transformation.mirrorHorizontal) {
+            newMovement.pose.y*=-1;
+            newMovement.pose.theta=lemlib::sanitizeAngle(180-newMovement.pose.theta);
+        }
+        if (transformation.mirrorVertical) {
+            newMovement.pose.x*=-1;
+            newMovement.pose.theta=lemlib::sanitizeAngle(newMovement.pose.theta*-1, false);
+        }
+    }
+
+    return results;
+}
+
+lemlib::Pose lemlib::Chassis::transformPose(const lemlib::Pose& pose, transform_across_field transformation) {
+    lemlib::Pose newPose=pose;
+    if (transformation.mirrorHorizontal) {
+        newPose.y*=-1;
+        newPose.theta=lemlib::sanitizeAngle(180-newPose.theta);
+    }
+    if (transformation.mirrorVertical) {
+        newPose.x*=-1;
+        newPose.theta=lemlib::sanitizeAngle(newPose.theta*-1, false);
+    }
+    return newPose;
+}
+
+void lemlib::Chassis::processMovements(std::vector<movement>& movements) {
+    for (auto eachMovement : movements) {
+        if (std::holds_alternative<lemlib::MoveToPoseParams>(eachMovement.moveParams)) {
+            lemlib::MoveToPoseParams params=std::get<lemlib::MoveToPoseParams>(eachMovement.moveParams);
+            moveToPoseAndPointWithOffsetAndEarlyExit(eachMovement);
+        }else if (std::holds_alternative<lemlib::MoveToPointParams>(eachMovement.moveParams)) {
+            lemlib::MoveToPointParams params=std::get<lemlib::MoveToPointParams>(eachMovement.moveParams);
+            moveToPoseAndPointWithOffsetAndEarlyExit(eachMovement);
+        }
+    }
+}
+
+void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees, bool async) {
+    if (std::holds_alternative<lemlib::MoveToPoseParams>(moveParams)) {
+        lemlib::MoveToPoseParams params=std::get<lemlib::MoveToPoseParams>(moveParams);
+        moveToPoseWithEarlyExit(calculatePoseWithOffsetInDirection(pose,offsetDistance,degrees), timeout, params, exit_distance, degrees, async);
+    }else if (std::holds_alternative<lemlib::MoveToPointParams>(moveParams)) {
+        lemlib::MoveToPointParams params=std::get<lemlib::MoveToPointParams>(moveParams);
+        moveToPointWithEarlyExit(calculatePoseWithOffsetInDirection(pose, offsetDistance, degrees), timeout, params, exit_distance, async);
+    }
+}
+
+void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement) {
+    auto& moveParams = s_movement.moveParams;
+
+    if (std::holds_alternative<MoveToPoseParams>(moveParams)) {
+        MoveToPoseParams params = std::get<MoveToPoseParams>(moveParams);
+        moveToPoseAndPointWithOffsetAndEarlyExit(s_movement.pose,
+                                                  s_movement.offset_distance,
+                                                  s_movement.timeout,
+                                                  params,
+                                                  s_movement.exitDistance,
+                                                  s_movement.degrees,
+                                                  s_movement.async);
+    } else if (std::holds_alternative<MoveToPointParams>(moveParams)) {
+        MoveToPointParams params = std::get<MoveToPointParams>(moveParams);
+        moveToPoseAndPointWithOffsetAndEarlyExit(s_movement.pose,
+                                                  s_movement.offset_distance,
+                                                  s_movement.timeout,
+                                                  params,
+                                                  s_movement.exitDistance,
+                                                  s_movement.degrees,
+                                                  s_movement.async);
+    }
 }

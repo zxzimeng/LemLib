@@ -491,8 +491,28 @@ class Chassis {
 
         void moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance,
                                       bool async);
+        struct movement {
+         lemlib::Pose pose;
+         float offset_distance;
+         std::variant<lemlib::MoveToPoseParams, lemlib::MoveToPointParams> moveParams;
+         float exitDistance;
+         float timeout=4000;
+         bool degrees=true;
+         bool async=false;
+        };
 
-        /**
+        struct transform_across_field {
+         bool mirrorHorizontal;
+         bool mirrorVertical;
+        };
+
+        std::vector<movement> transformMovements(const std::vector<movement>& movements, transform_across_field transformation);
+        void processMovements(std::vector<movement>& movements);
+        static lemlib::Pose transformPose(const lemlib::Pose& pose, transform_across_field);
+        void moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees=true, bool async=false);
+        void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);
+
+ /**
          * @brief Turn the chassis so it is facing the target point
          *
          * @param x x location
