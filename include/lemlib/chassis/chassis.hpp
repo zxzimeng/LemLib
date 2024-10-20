@@ -331,6 +331,7 @@ extern ExpoDriveCurve defaultDriveCurve;
  */
 class Chassis {
     public:
+
         /**
          * @brief Chassis constructor
          *
@@ -481,6 +482,8 @@ class Chassis {
          * chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
          * @endcode
          */
+        int last_execution_index;
+        
         void setBrakeMode(pros::motor_brake_mode_e mode);
 
         float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params, bool degrees);
@@ -507,10 +510,11 @@ class Chassis {
         };
 
         std::vector<movement> transformMovements(const std::vector<movement>& movements, transform_across_field transformation);
-        void processMovements(std::vector<movement>& movements);
-        static lemlib::Pose transformPose(const lemlib::Pose& pose, transform_across_field);
+        void processMovements(std::vector<movement>&movements,bool execute_immediately);
+ void processMovements(std::vector<movement>&movements, int startMovement, int lastMovement,bool updateIndex);
+        static Pose transformPose(const lemlib::Pose& pose, transform_across_field);
         void moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees=true, bool async=false);
-        void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);
+        void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);int getLastExecutionIndex();int setExecutionIndex(int index);
 
  /**
          * @brief Turn the chassis so it is facing the target point
@@ -656,6 +660,9 @@ class Chassis {
          * @param x x location
          * @param y y location
          * @param theta target heading in degrees.
+         * @param x
+         * @param y
+         * @param theta
          * @param timeout longest time the robot can spend moving
          * @param params struct to simulate named parameters
          * @param async whether the function should be run asynchronously. true by default
@@ -681,7 +688,7 @@ class Chassis {
          * chassis.moveToPose(0, 0, 0, 4000, {.lead = 0.3});
          * @endcode
          */
-        void moveToPose(Pose pose, int timeout, MoveToPoseParams params = {}, bool async = true);
+        void moveToPose( float x, float y, float theta,int timeout,MoveToPoseParams params = {},bool async = true);
         /**
          * @brief Move the chassis towards a target point
          *
@@ -939,6 +946,8 @@ class Chassis {
          * @warning Do not interact with these unless you know what you are doing
          */
         PID angularPID;
+        int level;
+    
     protected:
         /**
          * @brief Indicates that this motion is queued and blocks current task until this motion reaches front of queue
@@ -951,7 +960,6 @@ class Chassis {
 
         bool motionRunning = false;
         bool motionQueued = false;
-
         float distTraveled = 0;
 
         ControllerSettings lateralSettings;

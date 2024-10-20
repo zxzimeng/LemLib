@@ -219,6 +219,7 @@ lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInDirection(Pose pose, floa
 }
 
 void lemlib::Chassis::moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance, bool async=false, bool degrees=true) {
+
     if (exit_distance<0) {
         throw std::out_of_range("Exit distance must be non-negative");
     }
@@ -229,7 +230,8 @@ void lemlib::Chassis::moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPo
         return;
     }
     float expected_distance = aproximateDistanceToPoseWithBoomerang(getPose(true), {pose.x, pose.y, degrees? degToRad(pose.theta) : pose.theta}, {.lead=params.lead}, false)-exit_distance;
-    moveToPose(pose, timeout, params, false);
+    level+=1000;
+    moveToPose(pose.x, pose.y, pose.theta, timeout,params,false);
     waitUntil(expected_distance);
     cancelMotion();
     return;
@@ -279,6 +281,7 @@ std::vector<lemlib::Chassis::movement> lemlib::Chassis::transformMovements(const
             newMovement.pose.x*=-1;
             newMovement.pose.theta=lemlib::sanitizeAngle(newMovement.pose.theta*-1, false);
         }
+        results.emplace_back(newMovement);
     }
 
     return results;
@@ -288,7 +291,7 @@ lemlib::Pose lemlib::Chassis::transformPose(const lemlib::Pose& pose, transform_
     lemlib::Pose newPose=pose;
     if (transformation.mirrorHorizontal) {
         newPose.y*=-1;
-        newPose.theta=lemlib::sanitizeAngle(180-newPose.theta);
+        newPose.theta=lemlib::sanitizeAngle(180-newPose.theta, false);
     }
     if (transformation.mirrorVertical) {
         newPose.x*=-1;
@@ -297,10 +300,15 @@ lemlib::Pose lemlib::Chassis::transformPose(const lemlib::Pose& pose, transform_
     return newPose;
 }
 
-void lemlib::Chassis::processMovements(std::vector<movement>& movements) {
+void lemlib::Chassis::processMovements(std::vector<movement>& movements, bool execute_immediately=false) {
+    level+=1;
+    if (execute_immediately) {
+        this->cancelAllMotions();
+    }
     for (auto eachMovement : movements) {
         if (std::holds_alternative<lemlib::MoveToPoseParams>(eachMovement.moveParams)) {
             lemlib::MoveToPoseParams params=std::get<lemlib::MoveToPoseParams>(eachMovement.moveParams);
+            level+=10;
             moveToPoseAndPointWithOffsetAndEarlyExit(eachMovement);
         }else if (std::holds_alternative<lemlib::MoveToPointParams>(eachMovement.moveParams)) {
             lemlib::MoveToPointParams params=std::get<lemlib::MoveToPointParams>(eachMovement.moveParams);
@@ -309,8 +317,20 @@ void lemlib::Chassis::processMovements(std::vector<movement>& movements) {
     }
 }
 
+void lemlib::Chassis::processMovements(std::vector<movement>& movements, int startMovement, int lastMovement, bool updateIndex=true) {
+    if (startMovement < 0 || lastMovement >= movements.size()) {
+        throw std::out_of_range("Invalid movement index range");
+    }
+    std::vector<movement> subsetMovements(movements.begin() + startMovement, movements.begin() + lastMovement + 1);
+    processMovements(subsetMovements);
+    if (updateIndex) {
+        last_execution_index=(lastMovement);
+    }
+}
+
 void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees, bool async) {
     if (std::holds_alternative<lemlib::MoveToPoseParams>(moveParams)) {
+        level+=100;
         lemlib::MoveToPoseParams params=std::get<lemlib::MoveToPoseParams>(moveParams);
         moveToPoseWithEarlyExit(calculatePoseWithOffsetInDirection(pose,offsetDistance,degrees), timeout, params, exit_distance, degrees, async);
     }else if (std::holds_alternative<lemlib::MoveToPointParams>(moveParams)) {
@@ -341,4 +361,12 @@ void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movem
                                                   s_movement.degrees,
                                                   s_movement.async);
     }
+}
+
+int lemlib::Chassis::getLastExecutionIndex() {
+    return last_execution_index;
+}
+
+int lemlib::Chassis::setExecutionIndex(int index) {
+    last_execution_index = index;
 }
