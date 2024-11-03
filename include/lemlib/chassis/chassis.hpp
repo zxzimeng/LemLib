@@ -488,7 +488,7 @@ class Chassis {
 
         float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params, bool degrees);
 
-        lemlib::Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees);
+        lemlib::Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees);lemlib::Pose calculatePoseWithOffsetInPerpDirection(Pose pose, float offset, bool degrees);
 
         void moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance, bool degrees, bool async);
 
@@ -497,6 +497,7 @@ class Chassis {
         struct movement {
          lemlib::Pose pose;
          float offset_distance;
+         float perp_offset_distance;
          std::variant<lemlib::MoveToPoseParams, lemlib::MoveToPointParams> moveParams;
          float exitDistance;
          float timeout=4000;
@@ -512,9 +513,9 @@ class Chassis {
         std::vector<movement> transformMovements(const std::vector<movement>& movements, transform_across_field transformation);
         void processMovements(std::vector<movement>&movements,bool execute_immediately);
  void processMovements(std::vector<movement>&movements, int startMovement, int lastMovement,bool updateIndex);
-        static Pose transformPose(const lemlib::Pose& pose, transform_across_field);
-        void moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees=true, bool async=false);
-        void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);int getLastExecutionIndex();int setExecutionIndex(int index);
+ Pose transformPose( const lemlib::Chassis::movement&movement,transform_across_field);lemlib::Pose transformOnlyPose(const lemlib::Pose&pose, transform_across_field transformation);
+        void moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float perpOffsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees=true,bool async=false);
+        void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);int getLastExecutionIndex();int setExecutionIndex(int index);void processNextNMovements(std::vector<movement>&movements, int howmanymovements);void processNextMovements(std::vector<movement>&movements, int howmanymovements);
 
  /**
          * @brief Turn the chassis so it is facing the target point

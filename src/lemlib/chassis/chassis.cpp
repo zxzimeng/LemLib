@@ -209,12 +209,30 @@ float lemlib::Chassis::aproximateDistanceToPoseWithBoomerang(Pose current_pose, 
     return calculateArcLength<8000>(current_pose.x, current_pose.y, pose.x, pose.y,degrees? degToRad(pose.theta) : pose.theta, params.lead);
 }
 
-lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees=true) {
-    float magnitude = (Pose) {0,0,0}.distance(pose);
-    float target_magnitude = magnitude+offset;
-    Pose unit_vector = {sin(degrees? degToRad(pose.theta) : pose.theta)/magnitude, sin(degrees? degToRad(pose.theta) : pose.theta)/magnitude};
-    Pose target_pose = unit_vector*target_magnitude;
+lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees = true) {
+    // Convert theta to radians if necessary
+    float angle = degrees ? degToRad(pose.theta) : pose.theta;
 
+    // Calculate the target pose based on offset
+    Pose target_pose={0,0,0};
+    target_pose.x = pose.x + offset * cos(angle);
+    target_pose.y = pose.y + offset * sin(angle);
+    target_pose.theta = degrees ? sanitizeAngle(pose.theta, false) :
+    sanitizeAngle(pose.theta, true); // Keep theta the same
+
+    return target_pose;
+}
+
+lemlib::Pose lemlib::Chassis::calculatePoseWithOffsetInPerpDirection(Pose pose, float offset, bool degrees=true) {
+    // Convert theta to radians if necessary
+    float angle = degrees ? degToRad(pose.theta) : pose.theta;
+    float perpendicular_angle = angle + M_PI / 2; // Add 90 degrees in radians
+
+    // Calculate the target pose based on offset in the perpendicular direction
+    Pose target_pose={0,0,0};
+    target_pose.x = pose.x + offset * cos(perpendicular_angle);
+    target_pose.y = pose.y + offset * sin(perpendicular_angle);
+    target_pose.theta = pose.theta; // Keep theta the same
     return target_pose;
 }
 
@@ -257,6 +275,7 @@ void lemlib::Chassis::moveToPointWithEarlyExit(Pose pose, float timeout, MoveToP
 struct movement {
     lemlib::Pose pose;
     float offset_distance;
+    float perp_offset_distance;
     std::variant<lemlib::MoveToPoseParams, lemlib::MoveToPointParams> moveParams;
     float exitDistance;
     float timeout=4000;
@@ -273,21 +292,27 @@ std::vector<lemlib::Chassis::movement> lemlib::Chassis::transformMovements(const
     std::vector<movement> results;
     for (auto eachMovement : movements) {
         movement newMovement=eachMovement;
-        if (transformation.mirrorHorizontal) {
-            newMovement.pose.y*=-1;
-            newMovement.pose.theta=lemlib::sanitizeAngle(180-newMovement.pose.theta);
-        }
-        if (transformation.mirrorVertical) {
-            newMovement.pose.x*=-1;
-            newMovement.pose.theta=lemlib::sanitizeAngle(newMovement.pose.theta*-1, false);
-        }
+        newMovement.pose=lemlib::Chassis::transformPose(eachMovement, transformation);
         results.emplace_back(newMovement);
     }
 
     return results;
 }
 
-lemlib::Pose lemlib::Chassis::transformPose(const lemlib::Pose& pose, transform_across_field transformation) {
+lemlib::Pose lemlib::Chassis::transformPose(const lemlib::Chassis::movement& movement, transform_across_field transformation) {
+    lemlib::Pose newPose=calculatePoseWithOffsetInPerpDirection(calculatePoseWithOffsetInDirection(movement.pose,movement.offset_distance, movement.degrees), movement.perp_offset_distance, movement.degrees);
+    if (transformation.mirrorHorizontal) {
+        newPose.y*=-1;
+        newPose.theta=lemlib::sanitizeAngle(180-newPose.theta, false);
+    }
+    if (transformation.mirrorVertical) {
+        newPose.x*=-1;
+        newPose.theta=lemlib::sanitizeAngle(newPose.theta*-1, false);
+    }
+    return newPose;
+}
+
+lemlib::Pose lemlib::Chassis::transformOnlyPose(const lemlib::Pose& pose, transform_across_field transformation) {
     lemlib::Pose newPose=pose;
     if (transformation.mirrorHorizontal) {
         newPose.y*=-1;
@@ -328,14 +353,14 @@ void lemlib::Chassis::processMovements(std::vector<movement>& movements, int sta
     }
 }
 
-void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees, bool async) {
+void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float perpOffsetDistance, float timeout, std::variant<MoveToPointParams, MoveToPoseParams> moveParams, float exit_distance, bool degrees, bool async) {
     if (std::holds_alternative<lemlib::MoveToPoseParams>(moveParams)) {
         level+=100;
         lemlib::MoveToPoseParams params=std::get<lemlib::MoveToPoseParams>(moveParams);
-        moveToPoseWithEarlyExit(calculatePoseWithOffsetInDirection(pose,offsetDistance,degrees), timeout, params, exit_distance, degrees, async);
+        moveToPoseWithEarlyExit(pose, timeout, params, exit_distance, async, degrees);
     }else if (std::holds_alternative<lemlib::MoveToPointParams>(moveParams)) {
         lemlib::MoveToPointParams params=std::get<lemlib::MoveToPointParams>(moveParams);
-        moveToPointWithEarlyExit(calculatePoseWithOffsetInDirection(pose, offsetDistance, degrees), timeout, params, exit_distance, async);
+        moveToPointWithEarlyExit(pose, timeout, params, exit_distance, async);
     }
 }
 
@@ -346,20 +371,20 @@ void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movem
         MoveToPoseParams params = std::get<MoveToPoseParams>(moveParams);
         moveToPoseAndPointWithOffsetAndEarlyExit(s_movement.pose,
                                                   s_movement.offset_distance,
+                                                  s_movement.perp_offset_distance,
                                                   s_movement.timeout,
                                                   params,
                                                   s_movement.exitDistance,
-                                                  s_movement.degrees,
-                                                  s_movement.async);
+                                                  s_movement.degrees,s_movement.async);
     } else if (std::holds_alternative<MoveToPointParams>(moveParams)) {
         MoveToPointParams params = std::get<MoveToPointParams>(moveParams);
         moveToPoseAndPointWithOffsetAndEarlyExit(s_movement.pose,
                                                   s_movement.offset_distance,
+                                                  s_movement.perp_offset_distance,
                                                   s_movement.timeout,
                                                   params,
                                                   s_movement.exitDistance,
-                                                  s_movement.degrees,
-                                                  s_movement.async);
+                                                  s_movement.degrees,s_movement.async);
     }
 }
 
@@ -369,4 +394,11 @@ int lemlib::Chassis::getLastExecutionIndex() {
 
 int lemlib::Chassis::setExecutionIndex(int index) {
     last_execution_index = index;
+}
+
+void lemlib::Chassis::processNextNMovements(std::vector<movement>& movements, int howmanymovements) {
+    if (howmanymovements>=1) {
+        processMovements(movements, last_execution_index+1, howmanymovements+1+last_execution_index, true);
+    }
+    last_execution_index=howmanymovements+last_execution_index;
 }
