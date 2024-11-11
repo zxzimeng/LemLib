@@ -28,9 +28,6 @@
     <list default="true" id="90de64a7-e78f-42fd-8b78-ebc54363f554" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LemLib@0.5.4.zip" beforeDir="false" afterPath="$PROJECT_DIR$/LemLib@0.5.4.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +53,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/include/lemlib/chassis/chassis.hpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/lemlib/chassis/chassis.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///home/fox/code/LemLib/src/lemlib/chassis/chassis.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPoint.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/lemlib/chassis/motions/moveToPose.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/lemlib/chassis/motions/turnToPoint.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -268,6 +266,9 @@
       <workItem from="1730400888624" duration="594000" />
       <workItem from="1730492826198" duration="681000" />
       <workItem from="1730598524356" duration="1726000" />
+      <workItem from="1730602046471" duration="367000" />
+      <workItem from="1730602985719" duration="18000" />
+      <workItem from="1730604164429" duration="519000" />
     </task>
     <servers />
   </component>
