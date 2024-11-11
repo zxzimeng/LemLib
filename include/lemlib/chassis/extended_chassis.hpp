@@ -11,7 +11,7 @@ namespace lemlib {
 class ExtendedChassis : public Chassis {
 public:
     // Constructor
-    ExtendedChassis();
+    using Chassis::Chassis;
 
     // Methods for moving with early exit
     void moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, 
