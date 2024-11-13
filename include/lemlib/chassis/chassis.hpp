@@ -8,6 +8,7 @@
 #include "lemlib/pid.hpp"
 #include "lemlib/exitcondition.hpp"
 #include "lemlib/driveCurve.hpp"
+#include <variant>
 
 namespace lemlib {
  /**
@@ -325,6 +326,46 @@ namespace lemlib {
   float earlyExitRange = 0;
  };
 
+ struct movement {
+  lemlib::Pose pose;
+  float offset_distance;
+  float perp_offset_distance;
+  std::variant<lemlib::MoveToPoseParams, lemlib::MoveToPointParams> moveParams;
+  float exitDistance;
+  float timeout = 4000;
+  bool degrees = true;
+  bool async = false;
+ };
+
+ struct transform_across_field {
+  bool mirrorHorizontal;
+  bool mirrorVertical;
+ };
+
+ float aproximateDistanceToPoseWithBoomerang(Pose current_pose, Pose pose, MoveToPoseParams params,
+                                             bool degrees = true);
+
+ Pose calculatePoseWithOffsetInDirection(Pose pose, float offset, bool degrees);
+
+ Pose calculatePoseWithOffsetInPerpDirection(Pose pose, float offset, bool degrees);
+
+ void moveToPoseWithEarlyExit(Pose pose, float timeout, lemlib::MoveToPoseParams params,
+                              float exit_distance,
+                              bool degrees,
+                              bool async);
+
+ void moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance,
+                               bool async);
+
+ std::vector<movement> transformMovements(const std::vector<movement> &movements,
+                                          transform_across_field transformation);
+
+ Pose transformPose(lemlib::movement &movement, transform_across_field);
+
+ Pose transformOnlyPose(const lemlib::Pose &pose, transform_across_field transformation);
+
+ movement transformMovement(movement movement_s, transform_across_field transformation);
+
  // default drive curve
  extern ExpoDriveCurve defaultDriveCurve;
 
@@ -489,8 +530,38 @@ namespace lemlib {
    * // set the brake mode of the drivetrain motors to brake
    * chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
    * @endcode
-   */void setBrakeMode(pros::motor_brake_mode_e mode);
+   */
+  int last_execution_index;
 
+  void setBrakeMode(pros::motor_brake_mode_e mode);
+
+  void moveToPoseWithEarlyExit(Pose pose, float timeout, MoveToPoseParams params, float exit_distance, bool degrees,
+                               bool async);
+
+  void moveToPointWithEarlyExit(Pose pose, float timeout, MoveToPointParams params, float exit_distance,
+                                bool async);
+
+  void processMovement(movement movement_s, lemlib::transform_across_field transformation);
+
+
+  void processMovements(std::vector<movement> &movements, bool execute_immediately);
+
+  void processMovements(std::vector<movement> &movements, int startMovement, int lastMovement, bool updateIndex);
+
+  void moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance, float perpOffsetDistance,
+                                                float timeout,
+                                                std::variant<MoveToPointParams, MoveToPoseParams> moveParams,
+                                                float exit_distance, bool degrees = true, bool async = false);
+
+  void moveToPoseAndPointWithOffsetAndEarlyExit(movement &s_movement);
+
+  int getLastExecutionIndex();
+
+  int setExecutionIndex(int index);
+
+  void processNextNMovements(std::vector<movement> &movements, int howmanymovements);
+
+  void processNextMovements(std::vector<movement> &movements, int howmanymovements);
 
   /**
           * @brief Turn the chassis so it is facing the target point

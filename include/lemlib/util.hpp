@@ -5,8 +5,6 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/pose.hpp"
 
-#include <variant>
-
 namespace lemlib {
 /**
  * @brief Slew rate limiter
@@ -165,4 +163,4 @@ float ema(float current, float previous, float smooth);
  * @endcode
  */
 float getCurvature(Pose pose, Pose other);
-};
+} // namespace lemlib
