@@ -223,35 +223,6 @@ void lemlib::Chassis::processMovement(movement movement_s,
     }
 }
 
-//
-// void lemlib::Chassis::processMovements(std::vector<movement> &movements, bool execute_immediately = false) {
-//     level += 1;
-//     if (execute_immediately) {
-//         this->cancelAllMotions();
-//     }
-//     for (auto eachMovement: movements) {
-//         if (std::holds_alternative<lemlib::MoveToPoseParams>(eachMovement.moveParams)) {
-//             lemlib::MoveToPoseParams params = std::get<lemlib::MoveToPoseParams>(eachMovement.moveParams);
-//             level += 10;
-//             moveToPoseAndPointWithOffsetAndEarlyExit(eachMovement);
-//         } else if (std::holds_alternative<lemlib::MoveToPointParams>(eachMovement.moveParams)) {
-//             lemlib::MoveToPointParams params = std::get<lemlib::MoveToPointParams>(eachMovement.moveParams);
-//             moveToPoseAndPointWithOffsetAndEarlyExit(eachMovement);
-//         }
-//     }
-// }
-//
-// void lemlib::Chassis::processMovements(std::vector<movement> &movements, int startMovement, int lastMovement,
-//                                        bool updateIndex = true) {
-//     if (startMovement < 0 || lastMovement >= movements.size()) {
-//         throw std::out_of_range("Invalid movement index range");
-//     }
-//     std::vector<movement> subsetMovements(movements.begin() + startMovement, movements.begin() + lastMovement + 1);
-//     processMovements(subsetMovements);
-//     if (updateIndex) {
-//         last_execution_index = (lastMovement);
-//     }
-// }
 
 void lemlib::Chassis::moveToPoseAndPointWithOffsetAndEarlyExit(Pose pose, float offsetDistance,
                                                                float perpOffsetDistance, float timeout,
